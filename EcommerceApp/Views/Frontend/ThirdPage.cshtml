@@ -1,0 +1,212 @@
+@model MyEcommerceApp.Models.Product
+
+<div class="container my-5">
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card border p-3 mb-3 text-center shadow-sm">
+                <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.Name" style="max-height: 400px; object-fit: contain;">
+            </div>
+            <div class="d-flex gap-2">
+                @for(int i=0; i < 5; i++) {
+                    <div class="border rounded p-1" style="width: 60px; height: 60px; cursor: pointer;">
+                        <img src="@Model.ImageUrl" class="img-fluid opacity-50">
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <span class="text-success small fw-bold"><i class="bi bi-check2"></i> In stock</span>
+            <h3 class="fw-bold mt-2">@Model.Name</h3>
+            
+            <div class="text-warning small my-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="text-muted ms-2">9.3 • 32 reviews • 154 sold</span>
+            </div>
+
+            <div class="row g-0 bg-light-orange rounded p-3 my-3" style="background-color: #fff4e6;">
+                <div class="col-4 border-end border-warning border-opacity-25 px-2">
+                    <h5 class="text-danger mb-0 fw-bold">$@Model.Price</h5>
+                    <small class="text-muted">50-100 pcs</small>
+                </div>
+                <div class="col-4 border-end border-warning border-opacity-25 px-2 text-center">
+                    <h5 class="mb-0 fw-bold">$@(Model.Price - 8)</h5>
+                    <small class="text-muted">100-700 pcs</small>
+                </div>
+                <div class="col-4 px-2 text-end">
+                    <h5 class="mb-0 fw-bold">$@(Model.Price - 20)</h5>
+                    <small class="text-muted">700+ pcs</small>
+                </div>
+            </div>
+
+            <table class="table table-borderless small mt-4">
+                <tr><td class="text-muted" width="30%">Price:</td><td>Negotiable</td></tr>
+                <tr><td class="text-muted">Type:</td><td>Classic shoes</td></tr>
+                <tr><td class="text-muted">Material:</td><td>Plastic material</td></tr>
+                <tr><td class="text-muted">Design:</td><td>Modern nice</td></tr>
+                <tr class="border-top"><td class="text-muted pt-3">Customization:</td><td class="pt-3">Customized logo and design</td></tr>
+                <tr><td class="text-muted">Protection:</td><td>Refund Policy</td></tr>
+                <tr><td class="text-muted">Warranty:</td><td>2 years full warranty</td></tr>
+            </table>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card shadow-sm border p-3">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="bg-info bg-opacity-25 text-info p-2 rounded me-3 fw-bold">R</div>
+                    <div>
+                        <div class="small text-muted">Supplier</div>
+                        <div class="fw-bold">Guanjoi Trading LLC</div>
+                    </div>
+                </div>
+                <hr class="my-2">
+                <ul class="list-unstyled small mb-4">
+                    <li class="mb-2"><img src="https://flagcdn.com/16x12/de.png" class="me-2"> Germany, Berlin</li>
+                    <li class="mb-2 text-muted"><i class="bi bi-shield-check me-2"></i> Verified Seller</li>
+                    <li class="text-muted"><i class="bi bi-globe me-2"></i> Worldwide shipping</li>
+                </ul>
+                <button class="btn btn-primary w-100 mb-2">Send inquiry</button>
+                <button class="btn btn-outline-primary w-100 mb-3">Seller's profile</button>
+                
+                <div class="text-center">
+                    <a href="#" class="text-decoration-none small text-primary fw-bold"><i class="bi bi-heart me-1"></i> Save for later</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="card border shadow-sm">
+                <div class="card-header bg-white border-bottom-0">
+                    <ul class="nav nav-tabs card-header-tabs" id="productTab" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc" type="button">Description</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link text-muted" id="review-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">Reviews</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link text-muted" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping" type="button">Shipping</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link text-muted" id="seller-tab" data-bs-toggle="tab" data-bs-target="#seller" type="button">About seller</button>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card-body">
+                    <div class="tab-content" id="productTabContent">
+                        <div class="tab-pane fade show active" id="desc">
+                            <p class="text-secondary small">
+                                @Model.Description <br><br>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+
+                            <div class="table-responsive mt-4" style="max-width: 500px;">
+                                <table class="table table-bordered small">
+                                    <tbody>
+                                        <tr><td class="bg-light text-muted" width="40%">Model</td><td>#8788867</td></tr>
+                                        <tr><td class="bg-light text-muted">Style</td><td>Classic style</td></tr>
+                                        <tr><td class="bg-light text-muted">Certificate</td><td>ISO-898921212</td></tr>
+                                        <tr><td class="bg-light text-muted">Size</td><td>34mm x 450mm x 19mm</td></tr>
+                                        <tr><td class="bg-light text-muted">Memory</td><td>36GB RAM</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <ul class="list-unstyled small mt-3">
+                                <li class="mb-2"><i class="bi bi-check2 text-muted me-2"></i> Some great feature name here</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-muted me-2"></i> Lorem ipsum dolor sit amet, consectetur</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-muted me-2"></i> Duis aute irure dolor in reprehenderit</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-muted me-2"></i> Some great feature name here</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card border shadow-sm p-3">
+                <h6 class="fw-bold mb-3">You may like</h6>
+                
+                @foreach(var suggestion in ViewBag.Suggestions) {
+                <div class="d-flex align-items-center mb-3">
+                    <div class="border rounded p-1 me-3" style="width: 60px; height: 60px;">
+                        <a asp-controller="Frontend" asp-action="ThirdPage" asp-route-id="@suggestion.Id" class="text-decoration-none text-dark d-flex flex-column align-items-center justify-content-center h-100">
+                        <img src="@suggestion.ImageUrl" class="img-fluid" alt="Like item">
+                        </a>                   
+                     </div>
+                    <div>
+                        <div class="small mb-0 text-truncate" style="max-width: 150px;">@suggestion.Name</div>
+                        <div class="text-muted small">$@suggestion.Price - $99.50</div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container my-5">
+    <div class="card border shadow-sm p-4">
+        <h5 class="fw-bold mb-4">Related products</h5>
+        
+        <div class="row g-3">
+            @if (ViewBag.RelatedProducts != null)
+            {
+                @foreach (var item in ViewBag.RelatedProducts)
+                {
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <a asp-action="ThirdPage" asp-route-id="@item.Id" class="text-decoration-none">
+                            <div class="text-start">
+                                <div class="bg-light rounded p-3 mb-2 d-flex align-items-center justify-content-center" style="height: 140px;">
+                                    <img src="@item.ImageUrl" class="img-fluid" style="max-height: 100%; object-fit: contain;">
+                                </div>
+                                <p class="mb-0 small text-dark text-truncate">@item.Name</p>
+                                <span class="text-muted small">$@item.Price</span>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+            </div>
+    </div>
+</div>
+<!-- STEP 1: Add the CSS at the very top of your file -->
+<style>
+    .discount-banner {
+        /* This creates the diagonal split effect seen in your image */
+        background: linear-gradient(105deg, #2b7fff 60%, #1761d4 60%);
+        border-radius: 8px;
+        overflow: hidden;
+        min-height: 100px;
+    }
+    .btn-orange {
+        background-color: #ff9900 !important;
+        border: none !important;
+        color: white !important;
+        font-weight: bold;
+    }
+</style>
+
+<!-- STEP 2: Place the HTML where you want it to show up -->
+<div class="container my-5">
+    <div class="discount-banner p-4 d-flex justify-content-between align-items-center shadow-sm">
+        <div class="text-white">
+            <h4 class="fw-bold mb-1">Super discount on more than 100 USD</h4>
+            <p class="mb-0 opacity-75 small">Have you ever finally just write dummy info</p>
+        </div>
+        <div>
+            <a href="#" class="btn btn-orange px-4 py-2 shadow-sm">Shop now</a>
+        </div>
+    </div>
+</div>

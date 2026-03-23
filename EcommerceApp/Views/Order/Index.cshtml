@@ -1,0 +1,139 @@
+@{
+    Layout=null;
+}
+@model List<MyEcommerceApp.Models.OrderHeader>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Header</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .top-bar {
+      border: 2px solid orange;
+      padding: 8px 12px;
+      background: #f8f9fa;
+    }
+    .icon-text {
+      font-size: 12px;
+      text-align: center;
+    }
+    .icon-text i {
+      display: block;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid top-bar">
+  <div class="row align-items-center">
+
+    <!-- Logo -->
+    <div class="col-md-2 d-flex align-items-center">
+      <i class="bi bi-bag-fill text-primary me-2"></i>
+      <strong>Brand</strong>
+    </div>
+
+    <!-- Icons -->
+    <div class="col-md-3 d-flex justify-content-end gap-4">
+      <div class="icon-text">
+        <i class="bi bi-person"></i>
+        Profile
+      </div>
+      <div class="icon-text">
+        <i class="bi bi-chat"></i>
+        Message
+      </div>
+      <div class="icon-text">
+        <a asp-controller="Order" asp-action="Index" class="text-decoration-none text-muted">
+          <i class="bi bi-heart"></i>
+          <p class="small mb-0">Orders</p>
+        </a>
+      </div>
+      <div class="icon-text">
+        <i class="bi bi-cart"></i>
+        My cart
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+<div class="container mt-5">
+    <h4 class="mb-4">Order History</h4>
+    <table class="table table-hover border">
+        <thead class="bg-light">
+            <tr>
+                <th>Order #</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model) {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                    <td><span class="badge bg-success">@order.OrderStatus</span></td>
+                    <td>$@order.TotalPrice</td>
+                    <td><button class="btn btn-sm btn-outline-primary">Details</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- STEP 1: Add the CSS at the very top of your file -->
+<style>
+    .discount-banner {
+        /* This creates the diagonal split effect seen in your image */
+        background: linear-gradient(105deg, #2b7fff 60%, #1761d4 60%);
+        border-radius: 8px;
+        overflow: hidden;
+        min-height: 100px;
+    }
+    .btn-orange {
+        background-color: #ff9900 !important;
+        border: none !important;
+        color: white !important;
+        font-weight: bold;
+    }
+</style>
+
+<!-- STEP 2: Place the HTML where you want it to show up -->
+<div class="container my-5">
+    <div class="discount-banner p-4 d-flex justify-content-between align-items-center shadow-sm">
+        <div class="text-white">
+            <h4 class="fw-bold mb-1">Super discount on more than 100 USD</h4>
+            <p class="mb-0 opacity-75 small">Have you ever finally just write dummy info</p>
+        </div>
+        <div>
+            <a href="#" class="btn btn-orange px-4 py-2 shadow-sm">Shop now</a>
+        </div>
+    </div>
+</div>
+</section>
+    <footer class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5 class="text-primary border p-1 d-inline-block mb-3">Brand</h5>
+                    <p class="text-muted">Best information about the company goes here but now let's lorem ipsum.</p>
+                </div>
+                <div class="col-md-2"><h6>About</h6><ul class="list-unstyled text-muted small"><li>About us</li><li>Find store</li></ul></div>
+                <div class="col-md-2"><h6>Information</h6><ul class="list-unstyled text-muted small"><li>Help center</li><li>Money refund</li></ul></div>
+                <div class="col-md-2"><h6>For users</h6><ul class="list-unstyled text-muted small"><li>Login</li><li>Register</li></ul></div>
+                <div class="col-md-3">
+                    <h6>Get app</h6>
+                    <button class="btn btn-dark btn-sm mb-2 w-100">App Store</button>
+                    <button class="btn btn-dark btn-sm w-100">Google Play</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</html>

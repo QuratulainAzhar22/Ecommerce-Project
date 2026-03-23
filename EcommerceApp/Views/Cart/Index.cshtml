@@ -1,0 +1,278 @@
+@using MyEcommerceApp
+@using MyEcommerceApp.Models
+@model List<MyEcommerceApp.Models.CartItem>
+@{
+    Layout = null; 
+}
+@{
+    // Simple calculations for the summary sidebar
+    decimal subtotal = Model.Sum(x => x.Price * x.Quantity);
+    decimal discount = 60.00m; // Example static discount
+    decimal tax = 14.00m;     // Example static tax
+    decimal total = (subtotal - discount) + tax;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Header</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .top-bar {
+      border: 2px solid orange;
+      padding: 8px 12px;
+      background: #f8f9fa;
+    }
+    .icon-text {
+      font-size: 12px;
+      text-align: center;
+    }
+    .icon-text i {
+      display: block;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid top-bar">
+  <div class="row align-items-center">
+
+    <!-- Logo -->
+    <div class="col-md-2 d-flex align-items-center">
+      <i class="bi bi-bag-fill text-primary me-2"></i>
+      <strong>Brand</strong>
+    </div>
+
+    <!-- Icons -->
+    <div class="col-md-3 d-flex justify-content-end gap-4">
+      <div class="icon-text">
+        <i class="bi bi-person"></i>
+        Profile
+      </div>
+      <div class="icon-text">
+        <i class="bi bi-chat"></i>
+        Message
+      </div>
+      <div class="icon-text">
+        <a asp-controller="Order" asp-action="Index" class="text-decoration-none text-muted">
+          <i class="bi bi-heart"></i>
+          <p class="small mb-0">Orders</p>
+        </a>
+      </div>
+      <div class="icon-text">
+        <i class="bi bi-cart"></i>
+        My cart
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+
+<div class="container my-5">
+    <h4 class="fw-bold mb-4">My cart (@Model.Count)</h4>
+    
+    <div class="row g-4">
+        <!-- LEFT COLUMN: Item List -->
+        <div class="col-lg-9">
+            <div class="card border shadow-sm p-4">
+                
+                @if (Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="row align-items-center mb-4 border-bottom pb-4">
+                            <!-- Product Image -->
+                            <div class="col-md-2 col-4 text-center">
+                                <div class="bg-light rounded p-2 border d-flex align-items-center justify-content-center" style="height: 100px;">
+                                    <img src="@item.ImageUrl" class="img-fluid" style="max-height: 80px;" alt="@item.Name">
+                                </div>
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="col-md-7 col-8">
+                                <h6 class="fw-bold mb-1 text-dark">@item.Name</h6>
+                                <p class="text-muted small mb-0">Size: medium, Color: blue, Material: Plastic</p>
+                                <p class="text-muted small">Seller: Artel Market</p>
+                                <div class="d-flex gap-2 mt-2">
+                                    <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId" 
+                                       class="btn btn-sm btn-outline-danger px-3">Remove</a>
+                                    <a asp-controller="Cart" asp-action="SaveForLater" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-primary px-3 text-primary">Save for later</a>
+                                </div>
+                            </div>
+
+                            <!-- Price and Quantity -->
+                            <div class="col-md-3 text-md-end text-start mt-3 mt-md-0">
+                                <h6 class="fw-bold mb-2">$@item.Price</h6>
+                                <select class="form-select form-select-sm d-inline-block w-auto">
+                                    <option selected>Qty: @item.Quantity</option>
+                                    <option value="1">Qty: 1</option>
+                                    <option value="2">Qty: 2</option>
+                                    <option value="3">Qty: 3</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <p class="text-muted">Your cart is empty.</p>
+                    </div>
+                }
+
+                <!-- Navigation Buttons -->
+                <div class="d-flex justify-content-between pt-2">
+                    <a asp-controller="Frontend" asp-action="Secondpage" class="btn btn-primary px-4 shadow-sm">
+                        <i class="bi bi-arrow-left me-2"></i>Back to shop
+                    </a>
+                    <button class="btn btn-outline-primary px-4">Remove all</button>
+                </div>
+            </div>
+
+            <!-- Features footer -->
+            <div class="row mt-5 text-muted">
+                <div class="col-md-4 mb-3 d-flex align-items-center">
+                    <div class="bg-light rounded-circle p-3 me-3"><i class="bi bi-lock"></i></div>
+                    <div class="small"><strong>Secure payment</strong><br>Have you ever finally just</div>
+                </div>
+                <div class="col-md-4 mb-3 d-flex align-items-center">
+                    <div class="bg-light rounded-circle p-3 me-3"><i class="bi bi-chat-dots"></i></div>
+                    <div class="small"><strong>Customer support</strong><br>Have you ever finally just</div>
+                </div>
+                <div class="col-md-4 mb-3 d-flex align-items-center">
+                    <div class="bg-light rounded-circle p-3 me-3"><i class="bi bi-truck"></i></div>
+                    <div class="small"><strong>Free delivery</strong><br>Have you ever finally just</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Summary -->
+        <div class="col-lg-3">
+            <!-- Coupon Card -->
+            <div class="card border shadow-sm p-3 mb-3">
+                <label class="small text-muted mb-2">Have a coupon?</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-sm" placeholder="Add coupon">
+                    <button class="btn btn-outline-primary btn-sm">Apply</button>
+                </div>
+            </div>
+
+            <!-- Calculation Card -->
+            <div class="card border shadow-sm p-3">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Subtotal:</span>
+                    <span class="small">$@subtotal.ToString("N2")</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Discount:</span>
+                    <span class="text-danger small">- $@discount.ToString("N2")</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 pb-2 border-bottom">
+                    <span class="text-muted small">Tax:</span>
+                    <span class="text-success small">+ $@tax.ToString("N2")</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <span class="fw-bold h6 mb-0">Total:</span>
+                    <span class="fw-bold h5 mb-0">$@total.ToString("N2")</span>
+                </div>
+                <a asp-controller="Cart" asp-action="Checkout" 
+                   class="btn btn-success w-100 py-2 fw-bold mb-3 shadow-sm" 
+                   style="background-color: #00b517; border: none;">Checkout(@total.ToString("C"))
+                </a>
+                
+                <div class="text-center opacity-75">
+                    <i class="bi bi-credit-card-2-front fs-4 mx-1"></i>
+                    <i class="bi bi-paypal fs-4 mx-1"></i>
+                    <i class="bi bi-apple fs-4 mx-1"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <div class="card border shadow-sm p-4">
+        <h5 class="fw-bold mb-4">Saved for later</h5>
+        <div class="row g-3">
+            @if (ViewBag.SavedItems != null && ((List<CartItem>)ViewBag.SavedItems).Any())
+            {
+                @foreach (var item in (List<CartItem>)ViewBag.SavedItems)
+                {
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <div class="card h-100 border-0">
+                            <div class="bg-light rounded-3 p-3 mb-2 d-flex align-items-center justify-content-center" style="height: 180px;">
+                                <img src="@item.ImageUrl" class="img-fluid" style="max-height: 140px; object-fit: contain;">
+                            </div>
+                            <div class="card-body p-0">
+                                <h6 class="fw-bold mb-1">$@item.Price</h6>
+                                <p class="text-muted small mb-2 text-truncate">@item.Name</p>
+                                <a asp-action="AddToCart" asp-route-id="@item.ProductId" class="btn btn-outline-primary btn-sm px-3">
+                                    <i class="bi bi-cart-plus me-1"></i> Move to cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted small">No items saved for later.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- STEP 1: Add the CSS at the very top of your file -->
+<style>
+    .discount-banner {
+        /* This creates the diagonal split effect seen in your image */
+        background: linear-gradient(105deg, #2b7fff 60%, #1761d4 60%);
+        border-radius: 8px;
+        overflow: hidden;
+        min-height: 100px;
+    }
+    .btn-orange {
+        background-color: #ff9900 !important;
+        border: none !important;
+        color: white !important;
+        font-weight: bold;
+    }
+</style>
+
+<!-- STEP 2: Place the HTML where you want it to show up -->
+<div class="container my-5">
+    <div class="discount-banner p-4 d-flex justify-content-between align-items-center shadow-sm">
+        <div class="text-white">
+            <h4 class="fw-bold mb-1">Super discount on more than 100 USD</h4>
+            <p class="mb-0 opacity-75 small">Have you ever finally just write dummy info</p>
+        </div>
+        <div>
+            <a href="#" class="btn btn-orange px-4 py-2 shadow-sm">Shop now</a>
+        </div>
+    </div>
+</div>
+</section>
+    <footer class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5 class="text-primary border p-1 d-inline-block mb-3">Brand</h5>
+                    <p class="text-muted">Best information about the company goes here but now let's lorem ipsum.</p>
+                </div>
+                <div class="col-md-2"><h6>About</h6><ul class="list-unstyled text-muted small"><li>About us</li><li>Find store</li></ul></div>
+                <div class="col-md-2"><h6>Information</h6><ul class="list-unstyled text-muted small"><li>Help center</li><li>Money refund</li></ul></div>
+                <div class="col-md-2"><h6>For users</h6><ul class="list-unstyled text-muted small"><li>Login</li><li>Register</li></ul></div>
+                <div class="col-md-3">
+                    <h6>Get app</h6>
+                    <button class="btn btn-dark btn-sm mb-2 w-100">App Store</button>
+                    <button class="btn btn-dark btn-sm w-100">Google Play</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</html>

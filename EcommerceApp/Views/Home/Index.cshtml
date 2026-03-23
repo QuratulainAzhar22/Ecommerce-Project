@@ -1,0 +1,155 @@
+﻿
+@model MyEcommerceApp.Models.HomeViewModel
+@{
+    Layout = "_LayoutMine";
+}
+
+<div class="container my-4">
+    <div class="card p-3 border-0 shadow-sm bg-white" style="border: 1px solid #dee2e6 !important;">
+        <div class="row g-3">
+            <div class="col-lg-3 d-none d-lg-block">
+                <nav class="nav flex-column">
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <a class="nav-link text-secondary py-2 px-3" href="/Frontend/Homepage">@cat</a>
+                    }
+                    @if (!Model.Categories.Any())
+                    {
+                        <span class="ps-3 text-muted small">No categories found</span>
+                    }
+                </nav>
+            </div>
+
+            <div class="col-lg-6 col-md-8">
+                <div class="position-relative h-100 rounded p-5 d-flex flex-column justify-content-center" 
+                     style="background: #96e9d5 url('/images/main img.png') no-repeat center right; background-size: cover; min-height: 380px;">
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4">
+                <div class="card border-0 p-3 mb-2" style="background-color: #e3f2fd;">
+                    <div class="d-flex align-items-start mb-3">
+                        <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center me-3" 
+                             style="width: 44px; height: 44px; font-size: 1.2rem; border: 2px solid white;">H</div>
+                        <p class="mb-0 small leading-sm text-dark">Hi, user <br> let's get started</p>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-sm w-100 mb-2 border-0 shadow-none">Join now</a>
+                    <a href="#" class="btn btn-white btn-sm w-100 text-primary bg-white border shadow-none">Log in</a>
+                </div>
+                <div class="card border-0 p-3 mb-2 text-white" style="background-color: #f38332; min-height: 95px;">
+                    <p class="mb-0 small">Get US $10 off <br> with a new <br> supplier</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-4">
+    <div class="card border shadow-sm overflow-hidden">
+        <div class="row g-0">
+            <div class="col-lg-3 col-md-4 p-4 border-end">
+                <h5 class="fw-bold mb-1">Deals and offers</h5>
+                <p class="text-muted small mb-4">Limited time only</p>
+                <div class="d-flex gap-2">
+                    <div class="bg-dark text-white rounded text-center p-2" style="width: 50px;"><div class="fw-bold">04</div><div style="font-size: 10px;">Days</div></div>
+                    <div class="bg-dark text-white rounded text-center p-2" style="width: 50px;"><div class="fw-bold">13</div><div style="font-size: 10px;">Hour</div></div>
+                    <div class="bg-dark text-white rounded text-center p-2" style="width: 50px;"><div class="fw-bold">34</div><div style="font-size: 10px;">Min</div></div>
+                    <div class="bg-dark text-white rounded text-center p-2" style="width: 50px;"><div class="fw-bold">56</div><div style="font-size: 10px;">Sec</div></div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-8">
+                <div class="row g-0 h-100">
+                    @foreach (var product in Model.DealProducts)
+                    {
+                        <div class="col border-end p-3 text-center d-flex flex-column align-items-center justify-content-center">
+                            <img src="@product.ImageUrl" class="img-fluid mb-2" style="height: 100px; object-fit: contain;" alt="@product.Name">
+                            <a asp-controller="Frontend" asp-action="ThirdPage" asp-route-id="@product.Id" class="text-decoration-none text-dark d-flex flex-column align-items-center justify-content-center h-100">
+                            <p class="small mb-1 text-truncate" style="max-width: 120px;">@product.Name</p>
+                            </a>
+                            <span class="badge rounded-pill bg-danger-subtle text-danger px-3 py-1">-25%</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-4">
+    <div class="card border-0 shadow-sm overflow-hidden" style="border: 1px solid #dee2e6 !important;">
+        <div class="row g-0">
+            <div class="col-lg-3 col-md-4 p-4 d-flex flex-column justify-content-start" 
+                 style="background: #f8f9fa url('/images/home interior.png') no-repeat center left; background-size: cover; min-height: 250px;">
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="row g-0">
+                    @foreach (var item in Model.RecommendedProducts)
+                    {
+                        <div class="col-md-3 col-6 border-start border-bottom p-3">
+                            <div class="d-flex justify-content-between h-100">
+                                <div>
+                                    <p class="mb-0 small fw-bold text-truncate" style="max-width: 80px;">@item.Name</p>
+                                    <p class="text-muted mb-0" style="font-size: 11px;">From <br> USD @item.Price</p>
+                                </div>
+                                <a asp-controller="Frontend" asp-action="ThirdPage" asp-route-id="@item.Id" class="text-decoration-none text-dark d-flex flex-column align-items-center justify-content-center h-100">
+                                <img src="@item.ImageUrl" style="width: 65px; height: 65px; object-fit: contain;">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container my-4">
+    <div class="card border-0 shadow-sm overflow-hidden" style="border: 1px solid #dee2e6 !important;">
+        <div class="row g-0">
+            <div class="col-lg-3 col-md-4 p-4 d-flex flex-column justify-content-start" 
+                 style="background: #f8f9fa url('/images/Electronic bg.png') no-repeat center left; background-size: cover; min-height: 250px;">
+     
+            </div>   
+            <div class="col-lg-9 col-md-8">
+                <div class="row g-0">
+                    @foreach (var item in Model.RecommendedProducts )
+                    {
+                        <div class="col-md-3 col-6 border-start border-bottom p-3">
+                            <div class="d-flex justify-content-between h-100">
+                                <div>
+                                    <p class="mb-0 small fw-bold text-truncate" style="max-width: 80px;">@item.Name</p>
+                                    <p class="text-muted mb-0" style="font-size: 11px;">From <br> USD @item.Price</p>
+                                </div>
+                                <a asp-controller="Frontend" asp-action="ThirdPage" asp-route-id="@item.Id" class="text-decoration-none text-dark d-flex flex-column align-items-center justify-content-center h-100">
+                                <img src="@item.ImageUrl" style="width: 65px; height: 65px; object-fit: contain;">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h4 class="fw-bold mb-4">Recommended items</h4>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
+        @foreach (var item in Model.RecommendedProducts)
+        {
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm p-3 recommendation-card" onclick="location.href='/Product/Details/@item.Id'">
+                    <a asp-controller="Frontend" asp-action="ThirdPage" asp-route-id="@item.Id" class="text-decoration-none text-dark d-flex flex-column align-items-center justify-content-center h-100">
+                    <img src="@item.ImageUrl" class="card-img-top mx-auto d-block" style="height: 150px; width: auto; object-fit: contain;" alt="@item.Name">
+                    </a>
+                    <div class="card-body px-0 pb-0">
+                        <h6 class="fw-bold mb-1">$@item.Price</h6>
+                        <p class="text-muted mb-0 small text-truncate-2" style="line-height: 1.3; height: 35px;">@item.Name</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

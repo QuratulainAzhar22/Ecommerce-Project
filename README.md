@@ -57,9 +57,24 @@ MyEcommerceApp/EcommerceApp/ <br/>
          |---- lauchsetting.json
 |         <br/>
 |----<b>appsetting.json</b>     <br/>   
+
+
 <br/>
 <b>Local Deployment</b>
 <br/>
 for now <br/>
 http://localhost:5231 <br/>
 Production Deploy --> Coming Soon <br/>
+
+
+<b>Features</b><br/>
+- DotNet MVC Core (Model-View-Controller)<br/>
+- Database SSMS (SQL SERVER)<br/>
+- Security Microsoft Identity Framework<br/>
+- Deployment Ready to Microsoft Azure<br/>
+<b>Customer View</b><br/>
+- Shopping Cart <br/>
+- Order History <br/>
+- Responsive UI <br/>
+<img width="1333" height="650" alt="image" src="https://github.com/user-attachments/assets/5aea6f8d-e035-4338-986f-0ac57f95c1d2" />
+
